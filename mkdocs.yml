@@ -1,0 +1,69 @@
+site_name: Karakoram HPC Docs
+site_description: Slurm-based compute, shared storage, GPU access, and reproducible software
+site_author: Aziz Khan
+repo_url: https://github.com/khan-lab/karakoram-hpc
+site_url: https://khan-lab.github.io/karakoram-hpc/
+repo_name: khan-lab/karakoram-hpc
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: teal
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: teal
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - search.highlight
+    - search.suggest
+    - toc.follow
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.inlinehilite
+  - attr_list
+  - md_in_html
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Account Setup: getting-started/account-setup.md
+      - Quick Start: getting-started/quick-start.md
+  - Storage:
+      - Storage Guide: storage/storage.md
+      - Quotas & Backups: storage/quotas.md
+  - Slurm:
+      - Running Jobs: slurm/jobs.md
+      - Interactive Jobs: slurm/interactive.md
+  - Software:
+      - Modules: software/modules.md
+      - Local Environments: software/environments.md
+      - Containers: software/containers.md
+  - Policies:
+      - Cluster Policy: policies/policy.md
+  - Admin:
+      - Users: admin/users.md
+      - Storage: admin/storage.md
+      - Slurm: admin/slurm.md
+      - Software: admin/software.md
+  - FAQ:
+      - FAQ: troubleshooting/faq.md
