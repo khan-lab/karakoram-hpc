@@ -2,7 +2,7 @@
 
 ## Request an account
 
-Contact the Aziz to request access. Provide:
+Contact the admin (for now Aziz) to request access. Provide:
 
 - Your full name and MBZUAI email address
 - Your intended use (project name or research area)
