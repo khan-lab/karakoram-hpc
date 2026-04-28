@@ -10,9 +10,9 @@
 
 | Resource | Specification |
 |---|---|
-| CPU cores | 384 total |
+| CPU cores | 384 total (AMD EPYC) |
 | GPU | 1× NVIDIA RTX 6000 Ada Generation |
-| Storage (`/storage`) | 150 TB ZFS |
+| Storage (`/storage`) | ~150 TB ZFS |
 | Scratch (`/scratch`) | 14 TB NVMe — **not backed up** |
 | Job scheduler | Slurm |
 
