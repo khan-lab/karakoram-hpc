@@ -104,7 +104,7 @@
     micromamba clean --all
 
     # Move large files to project storage
-    mv /storage/home/$USER/bigdata /storage/projects/myproject/
+    mv /storage/home/$USER/bigdata /storage/projects/$USER/myproject/
     ```
 
     If you need a larger quota, contact the admin.
@@ -117,18 +117,18 @@
 
     Yes. micromamba is installed globally and is the recommended way to manage conda-style environments. conda and mamba are **not** available — use micromamba instead.
 
-    Always create environments under `/storage/projects` to avoid filling your home quota:
+    Always create environments under `/storage/projects/$USER` to avoid filling your home quota:
 
     ```bash
-    micromamba create -p /storage/projects/<project>/envs/myenv python=3.11
-    micromamba activate /storage/projects/<project>/envs/myenv
+    micromamba create -p /storage/projects/$USER/<project>/envs/myenv python=3.11
+    micromamba activate /storage/projects/$USER/<project>/envs/myenv
     ```
 
     In Slurm job scripts, activate with the shell hook rather than relying on `~/.bashrc`:
 
     ```bash
     eval "$(micromamba shell hook --shell bash)"
-    micromamba activate /storage/projects/<project>/envs/myenv
+    micromamba activate /storage/projects/$USER/<project>/envs/myenv
     ```
 
     For full usage see [Local Environments](../software/environments.md#micromamba).

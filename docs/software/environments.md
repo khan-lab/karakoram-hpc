@@ -5,7 +5,7 @@ Two package managers are available globally on the cluster for creating user-man
 Use these when you need packages not available as modules, or when you need a pinned, reproducible environment for a specific project.
 
 !!! warning "Mind your home quota"
-    Conda environments can be very large (several GB). Store them in `/storage/projects/<project>/envs/`, not in your home directory. Instructions below show how to set the correct path for each tool.
+    Conda environments can be very large (several GB). Store them in `/storage/projects/$USER/<project>/envs/`, not in your home directory. Instructions below show how to set the correct path for each tool.
 
 ---
 
@@ -27,13 +27,13 @@ source ~/.bashrc
 Always specify the environment path explicitly to avoid filling your home directory:
 
 ```bash
-micromamba create -p /storage/projects/<project>/envs/myenv python=3.11
+micromamba create -p /storage/projects/$USER/<project>/envs/myenv python=3.11
 ```
 
 Or use an `environment.yml` file:
 
 ```bash
-micromamba create -p /storage/projects/<project>/envs/myenv -f environment.yml
+micromamba create -p /storage/projects/$USER/<project>/envs/myenv -f environment.yml
 ```
 
 Example `environment.yml`:
@@ -55,7 +55,7 @@ dependencies:
 ### Activate and use
 
 ```bash
-micromamba activate /storage/projects/<project>/envs/myenv
+micromamba activate /storage/projects/$USER/<project>/envs/myenv
 
 python --version
 which python
@@ -82,7 +82,7 @@ micromamba update --all
 ### Remove an environment
 
 ```bash
-micromamba env remove -p /storage/projects/<project>/envs/myenv
+micromamba env remove -p /storage/projects/$USER/<project>/envs/myenv
 ```
 
 ### Use in a Slurm job
@@ -99,7 +99,7 @@ Activate the environment inside your job script with the full path — do not re
 
 # Activate micromamba
 eval "$(micromamba shell hook --shell bash)"
-micromamba activate /storage/projects/<project>/envs/myenv
+micromamba activate /storage/projects/$USER/<project>/envs/myenv
 
 python train.py
 ```
@@ -112,12 +112,19 @@ python train.py
 
 pixi resolves packages from conda-forge and PyPI. It is well-suited for projects that you want to be fully self-contained and shareable.
 
+pixi is installed globally at `/usr/local/bin/pixi`. The following variables are set for you automatically at login — you do not need to configure them:
+
+| Variable | Path | Purpose |
+|---|---|---|
+| `PIXI_HOME` | `/storage/home/$USER/.pixi` | pixi global config and toolchain |
+| `PIXI_CACHE_DIR` | `/scratch/$USER/pixi-cache` | Downloaded package archive cache |
+
 ### Create a new project
 
-Run this inside your project directory under `/storage/projects`:
+Run this inside your project directory under `/storage/projects/$USER`:
 
 ```bash
-cd /storage/projects/<project>
+cd /storage/projects/$USER/<project>
 pixi init .
 ```
 
@@ -192,15 +199,15 @@ This reads the lock file and installs the pinned versions — no version drift.
 #SBATCH --mem=16G
 #SBATCH --time=04:00:00
 
-cd /storage/projects/<project>
+cd /storage/projects/$USER/<project>
 
 pixi run python train.py
 ```
 
 `pixi run` automatically uses the project's locked environment without any shell initialisation step.
 
-!!! tip "Keep `.pixi/` in your project directory"
-    By default, pixi stores the environment in `.pixi/envs/` inside the project directory. If your project is under `/storage/projects`, the environment lives there automatically — no home quota impact.
+!!! tip "Project environments live in the project directory"
+    pixi stores each project's environment in `.pixi/envs/` inside the project directory itself — not in `PIXI_HOME`. Keep your project under `/storage/projects/$USER` and the environment stays there, with no home quota impact. The package download cache goes to `/scratch/$USER/pixi-cache` automatically.
 
 ---
 

@@ -39,7 +39,7 @@ hostname
 echo "Running with $SLURM_CPUS_PER_TASK CPUs"
 
 # Copy results back before the job ends
-cp -r "$WORKDIR/results" /storage/projects/myproject/
+cp -r "$WORKDIR/results" /storage/projects/$USER/myproject/
 ```
 
 Submit:

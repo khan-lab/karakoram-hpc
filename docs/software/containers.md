@@ -42,7 +42,7 @@ apptainer pull /storage/software/containers/ubuntu24.sif \
 ```
 
 !!! tip "Use `/storage/software/containers/` for shared images"
-    Store images that multiple lab members will use under `/storage/software/containers/` (admin can help set permissions). Store personal or experimental images under `/storage/projects/<project>/containers/`.
+    Store images that multiple lab members will use under `/storage/software/containers/` (admin can help set permissions). Store personal or experimental images under `/storage/projects/$USER/<project>/containers/`.
 
 ---
 
@@ -81,8 +81,8 @@ By default, only your home directory is visible inside the container. Use `--bin
 apptainer exec --bind /storage,/scratch image.sif bash
 
 # Bind with a different internal path
-apptainer exec --bind /storage/projects/myproject:/data image.sif bash
-# /data inside the container now points to /storage/projects/myproject
+apptainer exec --bind /storage/projects/$USER/myproject:/data image.sif bash
+# /data inside the container now points to /storage/projects/$USER/myproject
 ```
 
 Always bind at least `/storage` for project data access. Add `/scratch` when the job reads or writes temporary files there.
@@ -120,7 +120,7 @@ IMAGE=/storage/software/containers/myimage.sif
 
 apptainer exec --bind /storage,/scratch \
     "$IMAGE" \
-    python /storage/projects/myproject/scripts/run.py
+    python /storage/projects/$USER/myproject/scripts/run.py
 ```
 
 ### GPU job
@@ -139,7 +139,7 @@ IMAGE=/storage/software/containers/myimage.sif
 
 apptainer exec --nv --bind /storage,/scratch \
     "$IMAGE" \
-    python /storage/projects/myproject/scripts/train.py
+    python /storage/projects/$USER/myproject/scripts/train.py
 ```
 
 ---
@@ -151,7 +151,7 @@ Pass environment variables with `--env` or `--env-file`:
 ```bash
 apptainer exec \
     --env MY_VAR=value \
-    --env-file /storage/projects/myproject/.env \
+    --env-file /storage/projects/$USER/myproject/.env \
     image.sif python script.py
 ```
 
@@ -177,7 +177,7 @@ sudo apptainer build myimage.sif myimage.def
 Transfer the `.sif` to the cluster:
 
 ```bash
-scp myimage.sif karakoram:/storage/projects/myproject/containers/
+scp myimage.sif karakoram:/storage/projects/$USER/myproject/containers/
 ```
 
 For images that will be shared across the lab, open a pull request on [khan-lab/biocontainers](https://github.com/khan-lab/biocontainers) instead.

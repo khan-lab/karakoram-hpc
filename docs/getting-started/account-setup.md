@@ -75,11 +75,11 @@ Use `scp` or `rsync` to move data to and from the cluster:
 scp localfile.txt karakoram:/storage/home/$USER/
 
 # Copy a directory recursively
-rsync -avz myproject/ karakoram:/storage/projects/myproject/
+rsync -avz myproject/ karakoram:/storage/projects/$USER/myproject/
 
 # Copy results back to your local machine
-scp karakoram:/storage/projects/myproject/results.tar.gz .
+scp karakoram:/storage/projects/$USER/myproject/results.tar.gz .
 ```
 
 !!! tip
-    Use `/storage/projects` for data shared with collaborators and `/storage/home/$USER` for personal scripts and configs only.
+    Use `/storage/projects/$USER` for your project data and `/storage/home/$USER` for personal scripts and configs only.

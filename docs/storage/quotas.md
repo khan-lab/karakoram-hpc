@@ -51,7 +51,7 @@ ZFS snapshots are point-in-time copies. If you accidentally delete a file in `/s
 
 ```bash
 du -sh /storage/home/$USER              # your home usage
-du -sh /storage/projects/myproject      # a specific project
+du -sh /storage/projects/$USER/myproject      # a specific project
 du -sh /scratch/$USER                   # your scratch usage
 df -h /storage                          # total storage fill level
 df -h /scratch                          # total scratch fill level

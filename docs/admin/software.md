@@ -26,8 +26,7 @@
 ├── containers/   shared Apptainer .sif images
 ├── envs/         micromamba environments backing modules
 ├── manifests/    installation log (software.tsv)
-├── modules/      Lmod modulefiles
-└── pixi/         shared pixi home (PIXI_HOME)
+└── modules/      Lmod modulefiles
 ```
 
 Initial setup:
@@ -298,19 +297,16 @@ sudo ln -sfn 1.0.lua latest.lua
 
 ## pixi — global configuration
 
-Set a shared pixi home so the global cache is not scattered across user homes:
+pixi is installed system-wide at `/usr/local/bin/pixi`. Per-user paths are configured via profile.d so users get the right directories automatically on login:
 
 ```bash
-echo 'export PIXI_HOME=/storage/software/pixi' \
-    | sudo tee /etc/profile.d/02-pixi.sh
+# /etc/profile.d/02-pixi.sh
+export PIXI_HOME="/storage/home/$USER/.pixi"
+export PIXI_CACHE_DIR="/scratch/$USER/pixi-cache"
+mkdir -p "$PIXI_HOME" "$PIXI_CACHE_DIR" 2>/dev/null
 ```
 
-Users should point their pixi cache to scratch to avoid home quota issues:
-
-```bash
-# Add to user ~/.bashrc during onboarding
-export PIXI_CACHE_DIR=/scratch/$USER/pixi-cache
-```
+`PIXI_HOME` keeps pixi's global config and toolchain inside each user's home directory (within quota). `PIXI_CACHE_DIR` routes downloaded package archives to scratch, which is large and not quota-limited.
 
 ---
 

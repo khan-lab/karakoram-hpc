@@ -27,12 +27,12 @@ quota -s
 ```
 
 !!! warning "Home quota"
-    Do not store large datasets, raw sequencing data, or model checkpoints in your home directory. Move bulk data to `/storage/projects`. See [Quotas & Backups](quotas.md) for limits.
+    Do not store large datasets, raw sequencing data, or model checkpoints in your home directory. Move bulk data to `/storage/projects/$USER`. See [Quotas & Backups](quotas.md) for limits.
 
 ## Project storage
 
 ```bash
-/storage/projects/<username>/<project-name>
+/storage/projects/$USER/<project-name>
 ```
 
 Use project storage for:
@@ -69,12 +69,12 @@ Scratch is a fast NVMe volume intended for temporary files during a job. Use it 
 
 ```bash
 # 1. Stage inputs from storage to scratch at job start
-cp /storage/projects/myproject/input.fa /scratch/$USER/$SLURM_JOB_ID/
+cp /storage/projects/$USER/myproject/input.fa /scratch/$USER/$SLURM_JOB_ID/
 
 # 2. Run analysis on scratch
 cd /scratch/$USER/$SLURM_JOB_ID
 my_tool input.fa > output.bam
 
 # 3. Copy results back to storage before job ends
-cp output.bam /storage/projects/myproject/results/
+cp output.bam /storage/projects/$USER/myproject/results/
 ```
