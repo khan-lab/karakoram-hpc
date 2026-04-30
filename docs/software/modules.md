@@ -27,12 +27,10 @@ module purge                   # unload everything
 |---|---|---|
 | `bio/` | `bio/1.0` | Bioinformatics tools (samtools, bwa, etc.) |
 | `r-bioc/` | `R/4.5.3` | R + Bioconductor packages |
-| `nextflow/` | `nextflow/25.10.4` | Nextflow workflow engine |
-| `cuda/` | `cuda/system` | CUDA toolkit (GPU partition only) |
-| `python/` | `python/3.11` | Python interpreter |
+| `python/` | `python/3.11` | Python interpreter with essential packages |
 
 !!! tip
-    Module names above are examples. Run `module avail` on the cluster to see the exact names and versions currently installed. Request new software from the admin.
+    Module names above are examples. Run `module avail` on the cluster to see the exact names and versions currently installed. For a full searchable list see [Installed Modules](catalogue.md). Request new software from the admin.
 
 ## Save and restore module environments
 
